@@ -1,0 +1,17 @@
+com\mycompany\vbis\model\Agency.class
+com\mycompany\vbis\config\ArangoConfig.class
+com\mycompany\vbis\repository\UserRepository.class
+com\mycompany\vbis\config\SecurityConfig.class
+com\mycompany\vbis\controller\UserController$1.class
+com\mycompany\vbis\model\JobAd.class
+com\mycompany\vbis\jwt\JwtAuthenticationFilter.class
+com\mycompany\vbis\model\User.class
+com\mycompany\vbis\VbisApplication.class
+com\mycompany\vbis\service\UserService.class
+com\mycompany\vbis\model\Priority.class
+com\mycompany\vbis\model\Skill.class
+com\mycompany\vbis\model\Student.class
+com\mycompany\vbis\dto\UpdateProfileRequest.class
+com\mycompany\vbis\model\LevelOfReadiness.class
+com\mycompany\vbis\controller\UserController.class
+com\mycompany\vbis\jwt\JwtUtil.class
