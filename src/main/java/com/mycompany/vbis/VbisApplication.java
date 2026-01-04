@@ -11,8 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author Luka
  */
-@SpringBootApplication
 
+@SpringBootApplication
 public class VbisApplication {
 
     public static void main(String[] args) {

@@ -4,57 +4,51 @@
  */
 package com.mycompany.vbis.model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Luka
  */
 public class JobAd {
     private String id;
-    private Skill skill;
-    private Priority priority;
-    private LevelOfReadiness levelOfReadiness;
+    private String title;
 
-    public JobAd() {
-    }
+    private ArrayList<JobRequirement> requirements;
 
-    public JobAd(String id, Skill skill, Priority priority, LevelOfReadiness levelOfReadiness) {
+    public JobAd(String id, String title, ArrayList<JobRequirement> requirements) {
         this.id = id;
-        this.skill = skill;
-        this.priority = priority;
-        this.levelOfReadiness = levelOfReadiness;
+        this.title = title;
+        this.requirements = requirements;
     }
 
     public String getId() {
         return id;
     }
 
-    public Skill getSkill() {
-        return skill;
+    public String getTitle() {
+        return title;
     }
 
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public LevelOfReadiness getLevelOfReadiness() {
-        return levelOfReadiness;
+    public ArrayList<JobRequirement> getRequirements() {
+        return requirements;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setSkill(Skill skill) {
-        this.skill = skill;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setPriority(Priority priority) {
-        this.priority = priority;
+    public void setRequirements(ArrayList<JobRequirement> requirements) {
+        this.requirements = requirements;
     }
+    
+    
 
-    public void setLevelOfReadiness(LevelOfReadiness levelOfReadiness) {
-        this.levelOfReadiness = levelOfReadiness;
-    }
+    
     
     
     
