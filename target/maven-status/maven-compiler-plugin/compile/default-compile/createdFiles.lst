@@ -1,3 +1,4 @@
+com\mycompany\vbis\model\JobRequirement.class
 com\mycompany\vbis\model\Agency.class
 com\mycompany\vbis\config\ArangoConfig.class
 com\mycompany\vbis\repository\UserRepository.class

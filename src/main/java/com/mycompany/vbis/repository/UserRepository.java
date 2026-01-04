@@ -72,7 +72,7 @@ public User findByUsername(String username) {
         (user instanceof Student) ? "students" : "agencies";
 
     db.collection(collection).updateDocument(
-            user.getUsername(),
+            user.getUsername(), //username mi je key
             user
     );
         return true;
