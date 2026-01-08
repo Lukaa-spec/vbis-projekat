@@ -84,6 +84,13 @@
             <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
+        
+          <!-- TDB2 -->
+    <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>jena-tdb2</artifactId>
+        <version>4.10.0</version>
+    </dependency>
 
         
     </dependencies>

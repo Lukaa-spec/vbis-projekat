@@ -6,6 +6,7 @@ package com.mycompany.vbis.controller;
 
 import com.mycompany.vbis.dto.UpdateProfileRequest;
 import com.mycompany.vbis.jwt.JwtUtil;
+import com.mycompany.vbis.model.JobAd;
 import com.mycompany.vbis.model.User;
 import com.mycompany.vbis.service.UserService;
 import java.util.Map;
@@ -91,6 +92,29 @@ public ResponseEntity<?> updateProfile(
 
     return ResponseEntity.ok(updatedUser);
 }
+
+
+//Dodavanje jobads
+@PostMapping("/job-ads")
+public ResponseEntity<?> addJobAd(
+        @RequestHeader("Authorization") String authHeader,
+        @RequestBody JobAd jobAd
+) {
+    if (!authHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(401).body("Nedostaje JWT token");
+    }
+
+    String token = authHeader.substring(7);
+    String username = jwtUtil.extractUsername(token);
+
+    try {
+        JobAd created = userService.addJobAd(username, jobAd);
+        return ResponseEntity.status(201).body(created);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(403).body(e.getMessage());
+    }
+}
+
 
 
 

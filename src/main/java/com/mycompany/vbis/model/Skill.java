@@ -9,21 +9,21 @@ package com.mycompany.vbis.model;
  * @author Luka
  */
 public class Skill {
-    private String naziv;
+    private String name;
 
     public Skill() {
     }
 
-    public Skill(String naziv) {
-        this.naziv = naziv;
+    public Skill(String name) {
+        this.name = name;
     }
 
-    public String getNaziv() {
-        return naziv;
+    public String getName() {
+        return name;
     }
 
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setName(String name) {
+        this.name = name;
     }
     
     

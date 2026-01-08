@@ -16,6 +16,11 @@ public class JobAd {
 
     private ArrayList<JobRequirement> requirements;
 
+    public JobAd() {
+    }
+    
+    
+
     public JobAd(String id, String title, ArrayList<JobRequirement> requirements) {
         this.id = id;
         this.title = title;

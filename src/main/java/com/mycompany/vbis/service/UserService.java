@@ -6,9 +6,12 @@ package com.mycompany.vbis.service;
 
 import com.mycompany.vbis.dto.UpdateProfileRequest;
 import com.mycompany.vbis.model.Agency;
+import com.mycompany.vbis.model.JobAd;
 import com.mycompany.vbis.model.Student;
 import com.mycompany.vbis.model.User;
+import com.mycompany.vbis.rdf.RdfJobAdService;
 import com.mycompany.vbis.repository.UserRepository;
+import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,9 +22,14 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private UserRepository repository;
     
-     public UserService(UserRepository repository) {
-        this.repository = repository;
-    }
+     private final RdfJobAdService rdfJobAdService;
+
+public UserService(UserRepository repository,
+                   RdfJobAdService rdfJobAdService) {
+    this.repository = repository;
+    this.rdfJobAdService = rdfJobAdService;
+}
+
      
        // Registracija korisnika
   public String register(User user, String type, String agencyName) {
@@ -118,6 +126,26 @@ public class UserService {
     if (!storedPassword.equals(inputPassword)) return null;
     return user;
 }
+
+    public JobAd addJobAd(String loggedUsername, JobAd jobAd) {
+         User user = repository.findByUsername(loggedUsername);
+
+    if (user == null) return null;
+
+    if (!(user instanceof Agency agency)) {
+        throw new RuntimeException("Samo agencija može dodati oglas");
+    }
+
+    jobAd.setId(UUID.randomUUID().toString());
+
+    agency.addJobAd(jobAd);
+
+    repository.updateUser(agency);
+    
+    rdfJobAdService.saveJobAd(jobAd);
+
+    return jobAd;
+    }
 
 
     
