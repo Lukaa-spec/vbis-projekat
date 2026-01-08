@@ -1,0 +1,26 @@
+# Maven build folder
+/target/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.lst
+
+# Apache Jena TDB runtime
+tdb/
+Data-0001/
+*.lock
+
+# IDE specific
+/.idea/
+/nbproject/
+/.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

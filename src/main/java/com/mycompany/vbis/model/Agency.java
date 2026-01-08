@@ -12,14 +12,14 @@ import java.util.ArrayList;
  */
 public class Agency extends User {
     private String agencyName;
-    private ArrayList<JobAd> jobAds;
+    private ArrayList<JobAd> jobAds = new ArrayList<>();
 
     public Agency() {
     }
 
     public Agency(String agencyName, ArrayList<JobAd> jobAds) {
         this.agencyName = agencyName;
-        this.jobAds = jobAds;
+        this.jobAds = new ArrayList<>();
     }
 
     public Agency(String username, String password, String email, String agencyName) {
@@ -43,6 +43,9 @@ public class Agency extends User {
         this.jobAds = jobAds;
     }
 
+      public void addJobAd(JobAd jobAd) {
+        this.jobAds.add(jobAd);
+    }
 
     
     
