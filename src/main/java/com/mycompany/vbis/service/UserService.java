@@ -11,6 +11,7 @@ import com.mycompany.vbis.model.Student;
 import com.mycompany.vbis.model.User;
 import com.mycompany.vbis.rdf.RdfJobAdService;
 import com.mycompany.vbis.repository.UserRepository;
+import java.util.ArrayList;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -127,6 +128,8 @@ public UserService(UserRepository repository,
     return user;
 }
 
+    
+    //Dodaj oglas
     public JobAd addJobAd(String loggedUsername, JobAd jobAd) {
          User user = repository.findByUsername(loggedUsername);
 
@@ -146,6 +149,48 @@ public UserService(UserRepository repository,
 
     return jobAd;
     }
+    
+    public ArrayList<JobAd> getAllJobAds() {
+    return repository.findAllJobAds();
+}
+
+    public User findByUsername(String username) {
+    return repository.findByUsername(username);
+}
+    
+    
+    public Student setLookingForJob(String username, boolean value) {
+    User user = repository.findByUsername(username);
+
+    if (user == null) return null;
+
+    if (!(user instanceof Student student)) {
+        throw new RuntimeException("Samo student može menjati ovaj status");
+    }
+
+    student.setLookingForJob(value);
+
+    repository.updateUser(student);
+
+    return student;
+}
+
+    //Pronadji studente koji traže posao
+    public ArrayList<Student> findStudentsLookingForJob(String agencyUsername) {
+
+    User user = repository.findByUsername(agencyUsername);
+
+    if (user == null) {
+        throw new RuntimeException("Korisnik ne postoji");
+    }
+
+    if (!(user instanceof Agency)) {
+        throw new RuntimeException("Samo agencije mogu da pretražuju studente koji traže posao");
+    }
+
+    return repository.findStudentsLookingForJob();
+}
+
 
 
     

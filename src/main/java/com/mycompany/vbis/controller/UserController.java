@@ -7,11 +7,14 @@ package com.mycompany.vbis.controller;
 import com.mycompany.vbis.dto.UpdateProfileRequest;
 import com.mycompany.vbis.jwt.JwtUtil;
 import com.mycompany.vbis.model.JobAd;
+import com.mycompany.vbis.model.Student;
 import com.mycompany.vbis.model.User;
 import com.mycompany.vbis.service.UserService;
+import java.util.ArrayList;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -114,6 +117,81 @@ public ResponseEntity<?> addJobAd(
         return ResponseEntity.status(403).body(e.getMessage());
     }
 }
+
+
+//Pretraga svih oglasa
+@GetMapping("/job-ads")
+public ResponseEntity<?> getAllJobAds(
+        @RequestHeader("Authorization") String authHeader
+) {
+    if (!authHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(401).body("Nedostaje JWT token");
+    }
+
+    String token = authHeader.substring(7);
+    String username = jwtUtil.extractUsername(token);
+
+    User user = userService.findByUsername(username);
+
+    if (user == null) {
+        return ResponseEntity.status(401).body("Nepostojeći korisnik");
+    }
+
+    if (!(user instanceof Student)) {
+        return ResponseEntity.status(403)
+                .body("Samo studenti mogu da pretražuju oglase");
+    }
+
+    return ResponseEntity.ok(userService.getAllJobAds());
+}
+
+
+//Traži posao
+@PutMapping("/looking-for-job")
+public ResponseEntity<?> setLookingForJob(
+        @RequestHeader("Authorization") String authHeader,
+        @RequestParam boolean value
+) {
+    if (!authHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(401).body("Nedostaje JWT token");
+    }
+
+    String token = authHeader.substring(7);
+    String username = jwtUtil.extractUsername(token);
+
+    try {
+        Student student = userService.setLookingForJob(username, value);
+        if (student == null) {
+            return ResponseEntity.status(404).body("Korisnik ne postoji");
+        }
+        return ResponseEntity.ok(student);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(403).body(e.getMessage());
+    }
+}
+
+
+//Studenti koji traže posao
+@GetMapping("/students-looking-for-job")
+public ResponseEntity<?> getStudentsLookingForJob(
+        @RequestHeader("Authorization") String authHeader
+) {
+    if (!authHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(401).body("Nedostaje JWT token");
+    }
+
+    String token = authHeader.substring(7);
+    String username = jwtUtil.extractUsername(token);
+
+    try {
+        ArrayList<Student> students = userService.findStudentsLookingForJob(username);
+        return ResponseEntity.ok(students);
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(403).body(e.getMessage());
+    }
+}
+
+
 
 
 
