@@ -10,6 +10,8 @@ import com.arangodb.ArangoCursor;
 import com.mycompany.vbis.model.User;
 import com.mycompany.vbis.model.Student;
 import com.mycompany.vbis.model.Agency;
+import com.mycompany.vbis.model.JobAd;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
@@ -66,7 +68,7 @@ public User findByUsername(String username) {
 }
 
 
-    //update user
+    //Update user
     public boolean updateUser(User user) {
         String collection =
         (user instanceof Student) ? "students" : "agencies";
@@ -76,6 +78,42 @@ public User findByUsername(String username) {
             user
     );
         return true;
+}
+
+  
+//Izlistaj sve jobads
+public ArrayList<JobAd> findAllJobAds() {
+
+    String aql = """
+        FOR a IN agencies
+            FOR job IN a.jobAds
+                RETURN job
+    """;
+
+    ArangoCursor<JobAd> cursor = db.query(aql, JobAd.class);
+
+    ArrayList<JobAd> result = new ArrayList<>();
+    cursor.forEachRemaining(result::add);
+
+    return result;
+}
+
+
+
+public ArrayList<Student> findStudentsLookingForJob() {
+
+    String query = """
+        FOR s IN students
+            FILTER s.lookingForJob == true
+            RETURN s
+    """;
+
+    ArangoCursor<Student> cursor = db.query(query, Student.class);
+
+    ArrayList<Student> result = new ArrayList<>();
+    cursor.forEachRemaining(result::add);
+
+    return result;
 }
 
     
