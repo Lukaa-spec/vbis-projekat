@@ -42,6 +42,10 @@ public UserService(UserRepository repository,
     if (user.getEmail() == null || !user.getEmail().contains("@")) {
         return "Email mora biti validan!";
     }
+    
+    if (repository.emailExists(user.getEmail())) {
+        return "Email već postoji!";
+    }
 
     if (repository.findByUsername(user.getUsername()) != null) {
         return "Korisničko ime već postoji!";
@@ -145,7 +149,7 @@ public UserService(UserRepository repository,
 
     repository.updateUser(agency);
     
-    rdfJobAdService.saveJobAd(jobAd);
+    rdfJobAdService.saveJobAd(loggedUsername, jobAd);
 
     return jobAd;
     }
@@ -190,6 +194,23 @@ public UserService(UserRepository repository,
 
     return repository.findStudentsLookingForJob();
 }
+    
+    public ArrayList<JobAd> searchJobs(String username, String query) {
+   
+    User user = repository.findByUsername(username);
+    if (user == null) {
+        throw new RuntimeException("Korisnik nije pronađen");
+    }
+
+    if (query == null || query.trim().isEmpty()) {
+        return new ArrayList<>();
+    }
+
+    
+    return repository.searchJobAds(query);
+}
+    
+    
 
 
 

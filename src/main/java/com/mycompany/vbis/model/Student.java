@@ -13,36 +13,35 @@ import java.util.Map;
  * @author Luka
  */
 public class Student extends User {
+   
+    private ArrayList<ExamAttempt> examHistory;
     private ArrayList<String> skills;
-    private Map<String, Integer> passedExams;
     private boolean lookingForJob;
 
     public Student() {
+        this.skills = new ArrayList<>();
+        this.examHistory = new ArrayList<>();
+        this.lookingForJob = false;
     }
 
-    public Student(ArrayList<String> skills, Map<String, Integer> passedExams, boolean lookingForJob) {
-        this.skills = skills;
-        this.passedExams = passedExams;
-        this.lookingForJob = lookingForJob;
-    }
 
-    public Student(ArrayList<String> skills, Map<String, Integer> passedExams, boolean lookingForJob, String id, String username, String password, String email) {
+    public Student(boolean lookingForJob, String username, String password, String email) {
         super(username, password, email);
-        this.skills = skills;
-        this.passedExams = passedExams;
+        this.skills = new ArrayList<>();
+        this.examHistory =  new ArrayList<>();
         this.lookingForJob = lookingForJob;
     }
+    
 
     public Student(String username, String password, String email) {
         super( username, password, email);
+        this.skills = new ArrayList<>();
+        this.examHistory = new ArrayList<>();
+        this.lookingForJob = false;
     }
 
     public ArrayList<String> getSkills() {
         return skills;
-    }
-
-    public Map<String, Integer> getPassedExams() {
-        return passedExams;
     }
 
     public boolean isLookingForJob() {
@@ -53,12 +52,16 @@ public class Student extends User {
         this.skills = skills;
     }
 
-    public void setPassedExams(Map<String, Integer> passedExams) {
-        this.passedExams = passedExams;
-    }
-
     public void setLookingForJob(boolean lookingForJob) {
         this.lookingForJob = lookingForJob;
+    }
+
+    public ArrayList<ExamAttempt> getExamHistory() {
+        return examHistory;
+    }
+
+    public void setExamHistory(ArrayList<ExamAttempt> examHistory) {
+        this.examHistory = examHistory;
     }
 
    
