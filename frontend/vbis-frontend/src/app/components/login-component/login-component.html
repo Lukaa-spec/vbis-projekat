@@ -1,0 +1,25 @@
+<div class="register-wrapper">
+  <div class="register-card">
+    <h2>Prijava</h2>
+    
+    <form (ngSubmit)="onLogin()">
+      <div class="input-group">
+        <label>Korisničko ime</label>
+        <input [(ngModel)]="credentials.username" name="username" placeholder="Unesite username" required>
+      </div>
+
+      <div class="input-group">
+        <label>Lozinka</label>
+        <input [(ngModel)]="credentials.password" name="password" type="password" placeholder="Unesite lozinku" required>
+      </div>
+
+      <button type="submit">Prijavi se</button>
+    </form>
+
+    <div *ngIf="error" class="error-msg" style="margin-top: 1rem;">{{error}}</div>
+    
+    <p style="text-align: center; margin-top: 1rem;">
+  Nemate nalog? <a [routerLink]="['/register']">Registrujte se</a>
+</p>
+  </div>
+</div>

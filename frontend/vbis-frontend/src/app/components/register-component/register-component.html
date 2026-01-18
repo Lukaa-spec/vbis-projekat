@@ -1,0 +1,25 @@
+<div class="register-wrapper">
+  <div class="register-card">
+    <h2>Registracija</h2>
+    
+    <form (ngSubmit)="onRegister()">
+      <input [(ngModel)]="userData.username" name="username" placeholder="Korisničko ime" required>
+      <input [(ngModel)]="userData.email" name="email" type="email" placeholder="Email" required>
+      <input [(ngModel)]="userData.password" name="password" type="password" placeholder="Lozinka" required>
+
+      <select [(ngModel)]="userData.type" name="type">
+        <option value="STUDENT">Student</option>
+        <option value="AGENCY">Agencija</option>
+      </select>
+
+      <div *ngIf="userData.type === 'AGENCY'" style="display: flex; flex-direction: column;">
+        <input [(ngModel)]="userData.agencyName" name="agencyName" placeholder="Ime agencije" required>
+      </div>
+
+      <button type="submit">Napravi nalog</button>
+    </form>
+
+    <div *ngIf="error" class="error-msg">{{error}}</div>
+    <div *ngIf="message" class="success-msg">{{message}}</div>
+  </div>
+</div>
