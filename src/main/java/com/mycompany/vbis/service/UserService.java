@@ -214,8 +214,7 @@ public User updateProfile(String loggedUsername, UpdateProfileRequest request) {
     return repository.findStudentsLookingForJob();
 }
     
-    
-    
+
     public ArrayList<JobAd> searchJobs(String username, String query) {
    
     User user = repository.findByUsername(username);
