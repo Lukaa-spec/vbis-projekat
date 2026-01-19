@@ -1,0 +1,141 @@
+.post-container {
+    max-width: 850px;
+    margin: 50px auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #34495e;
+}
+
+.title-input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #edf2f7;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    transition: border-color 0.2s;
+}
+
+.title-input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+hr {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px solid #edf2f7;
+}
+
+.requirement-builder {
+    background: #f8fafc;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.builder-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+}
+
+.builder-row input, .builder-row select {
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    background: white;
+}
+
+.add-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.add-btn:hover { background: #2980b9; }
+
+.requirements-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.requirements-list li {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #edf2f7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.skill-pill {
+    font-weight: bold;
+    color: #2d3748;
+    background: #ebf8ff;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.info-pill {
+    color: #718096;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}
+
+.remove-btn {
+    background: #fff5f5;
+    color: #e53e3e;
+    border: 1px solid #fed7d7;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.remove-btn:hover { background: #feb2b2; }
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    margin-top: 20px;
+    background: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+    transition: transform 0.1s, background 0.2s;
+}
+
+.submit-btn:hover { background: #27ae60; transform: translateY(-1px); }
+.submit-btn:active { transform: translateY(0); }

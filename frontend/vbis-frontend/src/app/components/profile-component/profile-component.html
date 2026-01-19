@@ -1,0 +1,43 @@
+<div class="profile-container">
+  <div class="profile-card" *ngIf="userData.email || userData._key">
+    <h2>Moj Profil</h2>
+    
+    <div class="form-group">
+      <label>Korisničko ime (trajno)</label>
+      <input [value]="userData._key || userData.username" disabled class="disabled-input">
+      <small>Username je jedinstveni identifikator i ne može se menjati.</small>
+    </div>
+
+    <div class="form-group">
+      <label>Email adresa</label>
+      <input [(ngModel)]="userData.email" type="email">
+    </div>
+
+    <div class="form-group">
+      <label>Nova Lozinka</label>
+      <input [(ngModel)]="userData.password" type="password">
+    </div>
+
+    <div *ngIf="userType === 'STUDENT'" class="special-section">
+      <div class="checkbox-group">
+        <input type="checkbox" id="jobCheck" [(ngModel)]="userData.lookingForJob">
+        <label for="jobCheck">Trenutno tražim posao</label>
+      </div>
+    </div>
+
+    <div *ngIf="userType === 'AGENCY'" class="special-section">
+      <div class="form-group">
+        <label>Naziv Agencije / Kompanije</label>
+        <input [(ngModel)]="userData.agencyName" type="text">
+      </div>
+    </div>
+
+    <button (click)="onSave()" class="save-btn" [disabled]="loading">
+       Sačuvaj izmene
+    </button>
+  </div>
+
+  <div *ngIf="!userData.email && !userData._key" class="loading-state">
+    Učitavanje podataka...
+  </div>
+</div>

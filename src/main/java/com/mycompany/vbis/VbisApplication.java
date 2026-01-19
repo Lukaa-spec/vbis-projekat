@@ -5,8 +5,10 @@
 package com.mycompany.vbis;
 
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  *
  * @author Luka
@@ -18,4 +20,6 @@ public class VbisApplication {
     public static void main(String[] args) {
         SpringApplication.run(VbisApplication.class, args);
     }
+    
+    
 }

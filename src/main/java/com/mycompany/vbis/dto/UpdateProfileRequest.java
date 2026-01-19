@@ -14,6 +14,7 @@ public class UpdateProfileRequest {
     private String password;
     
     private String agencyName;
+    private Boolean lookingForJob;
 
     public void setUsername(String username) {
         this.username = username;
@@ -46,6 +47,16 @@ public class UpdateProfileRequest {
     public String getAgencyName() {
         return agencyName;
     }
+
+    public Boolean getLookingForJob() {
+        return lookingForJob;
+    }
+
+    public void setLookingForJob(Boolean lookingForJob) {
+        this.lookingForJob = lookingForJob;
+    }
+    
+    
     
     
     

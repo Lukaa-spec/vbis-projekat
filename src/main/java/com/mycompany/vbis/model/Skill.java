@@ -14,10 +14,12 @@ public class Skill {
     public Skill() {
     }
 
-    public Skill(String name) {
+    public Skill (String name) {
+
         this.name = name;
     }
 
+ 
     public String getName() {
         return name;
     }
@@ -25,6 +27,9 @@ public class Skill {
     public void setName(String name) {
         this.name = name;
     }
+
+    
+    
     
     
 }

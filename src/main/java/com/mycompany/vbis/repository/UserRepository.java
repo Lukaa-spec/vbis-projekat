@@ -7,12 +7,14 @@ package com.mycompany.vbis.repository;
 
 import com.arangodb.ArangoDatabase;
 import com.arangodb.ArangoCursor;
+import com.arangodb.model.AqlQueryOptions;
 import com.mycompany.vbis.model.User;
 import com.mycompany.vbis.model.Student;
 import com.mycompany.vbis.model.Agency;
 import com.mycompany.vbis.model.JobAd;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 /**
@@ -67,6 +69,21 @@ public User findByUsername(String username) {
        return null;
 }
 
+//Email već postoji
+public boolean emailExists(String email) {
+    String aqlStudents = "FOR u IN students FILTER u.email == @email RETURN 1";
+    Map<String, Object> vars = Map.of("email", email);
+    ArangoCursor<Integer> cursorStudents = db.query(aqlStudents, Integer.class, vars);
+    
+    if (cursorStudents.hasNext()) return true;
+
+   
+    String aqlAgencies = "FOR u IN agencies FILTER u.email == @email RETURN 1";
+    ArangoCursor<Integer> cursorAgencies = db.query(aqlAgencies, Integer.class, vars);
+    
+    return cursorAgencies.hasNext();
+}
+
 
     //Update user
     public boolean updateUser(User user) {
@@ -116,6 +133,29 @@ public ArrayList<Student> findStudentsLookingForJob() {
     return result;
 }
 
+
+public ArrayList<JobAd> searchJobAds(String query) {
+    String aql = """
+        FOR a IN agencies
+          FOR j IN a.jobAds
+            FILTER LIKE(j.title, @query, true)
+            OR LENGTH(
+              FOR r IN j.requirements
+                FILTER LIKE(r.skill.name, @query, true)
+                RETURN 1
+            ) > 0
+            RETURN MERGE(j, { "agencyName": a.agencyName })
+        """;
+    
+    Map<String, Object> bindVars = Map.of("query", "%" + query + "%");
+    ArangoCursor<JobAd> cursor = db.query(
+        aql, 
+        JobAd.class, 
+        bindVars, 
+        new AqlQueryOptions());
+    
+    return new ArrayList<>(cursor.asListRemaining());
+}
     
     
     

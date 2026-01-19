@@ -1,0 +1,112 @@
+.search-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI';
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+input {
+  flex: 1;
+  padding: 12px 20px;
+  border: 2px solid gray;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 12px 25px;
+  background: blue;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:disabled { background: #ccc; }
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+  height: 70vh;
+}
+
+.side-list {
+  overflow-y: auto;
+  border-right: 1px solid #eee;
+  padding-right: 10px;
+}
+
+.list-item {
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s;
+}
+
+.list-item:hover { background: #bfc3c7; }
+.list-item.active { border-color: #007bff; background: #dfe6f1; }
+
+.agency-tag { color: #777; font-size: 0.9rem; margin: 5px 0 0; }
+
+.details-view {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow-y: auto;
+}
+
+.req-box {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 5px solid white;
+}
+
+.req-main {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.prio-badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+
+.HIGH { background: #ffdee2; color: red; border-color: red; }
+.MEDIUM { background: #fff4e0; color:orange; }
+.LOW { background: #b0ecc4; color: green; }
+
+.readiness-text { font-weight: bold; color: #2d3436; }
+
+.empty-state {
+  text-align: center;
+  color: gray;
+  margin-top: 100px;
+}

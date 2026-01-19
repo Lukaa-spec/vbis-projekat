@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UpdateProfileRequest } from '../models/UpdateProfileRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,16 @@ export class AuthService {
   saveToken(token: string) {
     localStorage.setItem('token', token);
   }
+  
+  getProfile(): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+  return this.http.get('http://localhost:8080/users/profile', { headers });
+}
+
+updateProfile(request: UpdateProfileRequest): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+  return this.http.put('http://localhost:8080/users/profile', request, { headers });
+}
+
+
 }

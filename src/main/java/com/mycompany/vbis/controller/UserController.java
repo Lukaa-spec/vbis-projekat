@@ -6,6 +6,7 @@ package com.mycompany.vbis.controller;
 
 import com.mycompany.vbis.dto.UpdateProfileRequest;
 import com.mycompany.vbis.jwt.JwtUtil;
+import com.mycompany.vbis.model.Agency;
 import com.mycompany.vbis.model.JobAd;
 import com.mycompany.vbis.model.Student;
 import com.mycompany.vbis.model.User;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.mycompany.vbis.rdf.RdfJobAdService;
 
 /**
  *
@@ -62,19 +64,31 @@ public class UserController {
     }
 
     // Login
- @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> payload) {
-        String username = payload.get("username");
-        String password = payload.get("password");
-        
-        User user = userService.authenticate(username, password);
-        if (user == null) {
-            return ResponseEntity.status(401).body(Map.of("error", "Pogrešno korisničko ime ili lozinka!"));
-        }
-        
-        String token = jwtUtil.generateToken(user.getUsername());
-        return ResponseEntity.ok(Map.of("token", token));
+@PostMapping("/login")
+public ResponseEntity<?> login(@RequestBody Map<String, String> payload) {
+    String username = payload.get("username");
+    String password = payload.get("password");
+    
+    User user = userService.authenticate(username, password);
+    if (user == null) {
+        return ResponseEntity.status(401).body(Map.of("error", "Pogrešno korisničko ime ili lozinka!"));
     }
+    
+    String token = jwtUtil.generateToken(user.getUsername());
+    
+    String userType = "";
+    if (user instanceof Student) {
+        userType = "STUDENT";
+    } else if (user instanceof Agency) {
+        userType = "AGENCY";
+    }
+
+    return ResponseEntity.ok(Map.of(
+        "token", token,
+        "username", user.getUsername(),
+        "userType", userType
+    ));
+}
 
 
     //Update profile
@@ -94,6 +108,22 @@ public ResponseEntity<?> updateProfile(
     }
 
     return ResponseEntity.ok(updatedUser);
+}
+
+//Dobavi podatke o profilu
+@GetMapping("/profile")
+public ResponseEntity<?> getProfile() {
+    String loggedUsername = SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getName();
+
+    User user = userService.findByUsername(loggedUsername);
+
+    if (user == null) {
+        return ResponseEntity.status(404).body("Korisnik ne postoji!");
+    }
+
+    return ResponseEntity.ok(user);
 }
 
 
@@ -190,6 +220,29 @@ public ResponseEntity<?> getStudentsLookingForJob(
         return ResponseEntity.status(403).body(e.getMessage());
     }
 }
+
+
+@GetMapping("/search-jobs")
+public ResponseEntity<?> searchJobs(
+        @RequestHeader("Authorization") String authHeader,
+        @RequestParam String query
+) {
+    
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        return ResponseEntity.status(401).body("Nedostaje JWT token");
+    }
+
+    String token = authHeader.substring(7);
+    String username = jwtUtil.extractUsername(token);
+
+    try {
+        ArrayList<JobAd> ads = userService.searchJobs(username, query);
+        return ResponseEntity.ok(ads);
+    }catch (RuntimeException e) {
+    return ResponseEntity.status(403).body(e.getMessage());
+    }
+}
+
 
 
 
