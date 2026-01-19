@@ -93,34 +93,51 @@ public UserService(UserRepository repository,
     
    
 // Update profile
-    public User updateProfile(String loggedUsername, UpdateProfileRequest request) {
-        User user = repository.findByUsername(loggedUsername);
+public User updateProfile(String loggedUsername, UpdateProfileRequest request) {
+    User user = repository.findByUsername(loggedUsername);
 
-        if (user == null) {
-            return null;
+    if (user == null) {
+        return null;
+    }
+
+   if (request.getEmail() != null && request.getEmail().contains("@")) {
+        String newEmail = request.getEmail().trim();
+        
+        if (!newEmail.equalsIgnoreCase(user.getEmail())) {
+            if (repository.emailExists(newEmail)) {
+                throw new RuntimeException("Email već postoji!");
+            }
+            user.setEmail(newEmail);
         }
-
-        // Email
-        if (request.getEmail() != null && request.getEmail().contains("@")) {
-            user.setEmail(request.getEmail());
+    }
+    if (request.getPassword() != null && request.getPassword().length() >= 8) {
+        user.setPassword(request.getPassword());
+    }
+    
+    if (user instanceof Student student) {
+        if (request.getLookingForJob() != null) {
+            student.setLookingForJob(request.getLookingForJob());
         }
+    }
 
-        // Password
-        if (request.getPassword() != null && request.getPassword().length() >= 8) {
-            user.setPassword(request.getPassword());
-        }
+    //Ažuriranje agencyName u agenciji i u oglasu
+    if (user instanceof Agency agency) {
+        String newName = request.getAgencyName();
+        if (newName != null && !newName.isBlank()) {
+        
+            agency.setAgencyName(newName);
 
-        // Agency name
-        if (user instanceof Agency agency) {
-            if (request.getAgencyName() != null && !request.getAgencyName().isBlank()) {
-                agency.setAgencyName(request.getAgencyName());
+            if (agency.getJobAds() != null) {
+                for (JobAd ad : agency.getJobAds()) {
+                    ad.setAgencyName(newName);
+                }
             }
         }
-
-        repository.updateUser(user);
-
-        return user;
     }
+
+    repository.updateUser(user);
+    return user;
+}
     
     
     public User authenticate(String username, String password) {
@@ -144,6 +161,8 @@ public UserService(UserRepository repository,
     }
 
     jobAd.setId(UUID.randomUUID().toString());
+    
+    jobAd.setAgencyName(agency.getAgencyName());
 
     agency.addJobAd(jobAd);
 
@@ -195,6 +214,7 @@ public UserService(UserRepository repository,
     return repository.findStudentsLookingForJob();
 }
     
+
     public ArrayList<JobAd> searchJobs(String username, String query) {
    
     User user = repository.findByUsername(username);

@@ -1,0 +1,45 @@
+<div class="post-container">
+  <h2>Postavi novi oglas za posao</h2>
+
+  <div class="card">
+    <div class="form-group">
+      <label>Naslov pozicije</label>
+      <input [(ngModel)]="jobAd.title" placeholder="Npr. Junior Java Developer" class="title-input">
+    </div>
+
+    <hr>
+
+    <div class="requirement-builder">
+      <h3>Dodaj potrebnu veštinu</h3>
+      <div class="builder-row">
+        <input [(ngModel)]="newRequirement.skill.name" placeholder="Veština (npr. SQL)">
+        
+        <select [(ngModel)]="newRequirement.priority">
+          <option *ngFor="let p of priorities" [value]="p">{{ p }} Prioritet</option>
+        </select>
+
+        <select [(ngModel)]="newRequirement.levelOfReadiness">
+          <option *ngFor="let l of levels" [value]="l">{{ l }} Nivo</option>
+        </select>
+
+        <button type="button" (click)="addRequirement()" class="add-btn">Dodaj</button>
+      </div>
+    </div>
+
+    <div class="requirements-list" *ngIf="jobAd.requirements.length > 0">
+      <h4>Lista zahteva za ovaj oglas:</h4>
+      <ul>
+        <li *ngFor="let req of jobAd.requirements; let i = index">
+          <span class="skill-pill">{{ req.skill.name }}</span>
+          <span class="info-pill">{{ req.priority }}</span>
+          <span class="info-pill">{{ req.levelOfReadiness }}</span>
+          <button (click)="removeRequirement(i)" class="remove-btn">Ukloni</button>
+        </li>
+      </ul>
+    </div>
+
+    <button (click)="submitForm()" class="submit-btn" [disabled]="jobAd.requirements.length === 0">
+      Objavi oglas
+    </button>
+  </div>
+</div>

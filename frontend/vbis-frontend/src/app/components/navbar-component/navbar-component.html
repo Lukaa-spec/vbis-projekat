@@ -1,0 +1,23 @@
+<nav class="navbar">
+  <div class="nav-brand">VBIS Portal</div>
+
+  <div class="nav-links">
+    <ng-container *ngIf="userType === 'STUDENT'">
+      <a routerLink="/search-jobs" routerLinkActive="active">Pretraga poslova</a>
+      <a routerLink="/my-exams" routerLinkActive="active">Moji ispiti</a>
+    </ng-container>
+
+    <ng-container *ngIf="userType === 'AGENCY'">
+      <a routerLink="/job-ads" routerLinkActive="active">Postavi oglas</a>
+      <a routerLink="/my-ads" routerLinkActive="active">Moji oglasi</a>
+      <a routerLink="/search-students">Pretraži studente</a>
+    </ng-container>
+
+    <a routerLink="/profile" routerLinkActive="active">👤 Moj profil</a>
+  </div>
+
+  <div class="nav-user">
+    <span class="user-info">👤 {{ username }} ({{ userType }})</span>
+    <button class="logout-btn" (click)="onLogout()">Odjavi se</button>
+  </div>
+</nav>

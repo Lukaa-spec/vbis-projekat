@@ -29,15 +29,21 @@ export class LoginComponent {
 
 
     this.authService.login(this.credentials).subscribe({
-      next: (res) => {
-        this.authService.saveToken(res.token); 
-        console.log('Token sačuvan!');
-        this.router.navigate(['/search-jobs']); 
-      },
-      error: (err) => {
-        this.error = err.error?.error || 'Greška pri prijavi';
-        this.cdr.detectChanges();
-      }
-    });
+  next: (res: any) => {
+    localStorage.setItem('token', res.token);
+    localStorage.setItem('username', res.username);
+    localStorage.setItem('userType', res.userType); 
+
+    if (res.userType === 'AGENCY') {
+      this.router.navigate(['/job-ads']);
+    } else {
+      this.router.navigate(['/search-jobs']);
+    }
+  },
+  error: (err) => {
+    this.error = 'Neispravni podaci';
+    this.cdr.detectChanges();
+  }
+});
   }
 }

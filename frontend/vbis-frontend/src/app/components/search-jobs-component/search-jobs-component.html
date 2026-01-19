@@ -1,1 +1,71 @@
-<p>search-jobs-component works!</p>
+<div class="search-page-container">
+  <div class="search-header">
+    <h1>Pronađi idealan posao</h1>
+    <div class="search-box">
+      <input 
+        [(ngModel)]="searchQuery" 
+        (keyup.enter)="onSearch()"
+        placeholder="Unesite poziciju ili veštinu (npr. Java, Frontend...)"
+      >
+      <button (click)="onSearch()" [disabled]="loading">
+        Pretaži
+      </button>
+    </div>
+  </div>
+
+  <div class="content-layout" *ngIf="jobs.length > 0; else noData">
+    
+    <div class="side-list">
+      <div 
+        *ngFor="let job of jobs" 
+        class="list-item" 
+        [class.active]="selectedJob?.id === job.id"
+        (click)="selectJob(job)"
+      >
+        <div class="item-info">
+          <h3>{{ job.title }}</h3>
+          <p class="agency-tag"> {{ job.agencyName }}</p>
+        </div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+
+    <div class="details-view">
+      <div *ngIf="selectedJob; else selectPrompt" class="details-card">
+        <div class="details-header">
+          <h2>{{ selectedJob.title }}</h2>
+          <span class="agency-name">Poslodavac: {{ selectedJob.agencyName }}</span>
+        </div>
+        
+        <hr>
+        
+        <h3>Tehnički zahtevi</h3>
+        <div class="requirements-grid">
+          <div *ngFor="let req of selectedJob.requirements" class="req-box">
+            <div class="req-main">
+              <strong>{{ req.skill.name }}</strong>
+              <span class="prio-badge" [ngClass]="req.priority">
+                {{ req.priority }} Prioritet
+              </span>
+            </div>
+            <div class="req-footer">
+              Potreban nivo: <span class="readiness-text">{{ req.levelOfReadiness }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #selectPrompt>
+        <div class="empty-state">
+          <p>Izaberite oglas sa leve strane da vidite detalje.</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <div class="info-message" *ngIf="!loading">
+      {{ error || 'Unesite pojam i pritisnite Enter za pretragu.' }}
+    </div>
+  </ng-template>
+</div>

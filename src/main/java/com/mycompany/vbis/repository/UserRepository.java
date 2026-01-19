@@ -144,20 +144,18 @@ public ArrayList<JobAd> searchJobAds(String query) {
                 FILTER LIKE(r.skill.name, @query, true)
                 RETURN 1
             ) > 0
-            RETURN j
+ 
+            RETURN MERGE(j, { "agencyName": a.agencyName })
         """;
     
-    Map<String, Object> bindVars = new HashMap<>();
-    bindVars.put("query", "%" + query + "%");
-    
+    Map<String, Object> bindVars = Map.of("query", "%" + query + "%");
     ArangoCursor<JobAd> cursor = db.query(
         aql, 
-        JobAd.class,
-        bindVars,
-        new AqlQueryOptions()
-    );
+        JobAd.class, 
+        bindVars, 
+        new AqlQueryOptions());
     
-    return new ArrayList<>(cursor.asListRemaining()); // Vraća listu pronađenih oglasa
+    return new ArrayList<>(cursor.asListRemaining());
 }
     
     

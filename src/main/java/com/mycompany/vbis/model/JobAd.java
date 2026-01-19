@@ -13,20 +13,24 @@ import java.util.ArrayList;
 public class JobAd {
     private String id;
     private String title;
+    private String agencyName;
 
     private ArrayList<JobRequirement> requirements;
 
     public JobAd() {
     }
-    
-    
 
-    public JobAd(String id, String title, ArrayList<JobRequirement> requirements) {
+    public JobAd(String id, String title, String agencyName, ArrayList<JobRequirement> requirements) {
         this.id = id;
         this.title = title;
+        this.agencyName = agencyName;
         this.requirements = requirements;
     }
 
+    public String getAgencyName() {
+        return agencyName;
+    }
+    
     public String getId() {
         return id;
     }
@@ -50,6 +54,12 @@ public class JobAd {
     public void setRequirements(ArrayList<JobRequirement> requirements) {
         this.requirements = requirements;
     }
+
+    public void setAgencyName(String agencyName) {
+        this.agencyName = agencyName;
+    }
+    
+    
     
     
 
