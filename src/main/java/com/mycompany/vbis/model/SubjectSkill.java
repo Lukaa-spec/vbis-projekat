@@ -4,12 +4,15 @@
  */
 package com.mycompany.vbis.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  *
  * @author Luka
  */
 public class SubjectSkill {
     private Skill skill;
+    
+    @JsonProperty("levelOfReadiness")
     private LevelOfReadiness readinessLevel;
 
     public SubjectSkill() {

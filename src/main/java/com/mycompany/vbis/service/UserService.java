@@ -4,6 +4,7 @@
  */
 package com.mycompany.vbis.service;
 
+import com.mycompany.vbis.dto.UpdateJobAdRequest;
 import com.mycompany.vbis.dto.UpdateProfileRequest;
 import com.mycompany.vbis.model.Agency;
 import com.mycompany.vbis.model.JobAd;
@@ -230,8 +231,50 @@ public User updateProfile(String loggedUsername, UpdateProfileRequest request) {
     
     return repository.searchJobAds(query);
 }
+
+    public void deleteJobAd(String username, String adId) {
+       User user = repository.findByUsername(username);
+    if (user instanceof Agency agency) {
+        boolean removed = agency.getJobAds().removeIf(ad -> ad.getId().equals(adId));
+        
+            if (removed) {
+                repository.updateUser(agency);
+            } else {
+                throw new RuntimeException("Oglas nije pronađen.");
+            }
+        } 
+        
+    }
     
+
+
+public void updateJobAd(String username, UpdateJobAdRequest request) {
+    User user = repository.findByUsername(username);
     
+    if (user instanceof Agency agency) {
+        boolean found = false;
+        for (JobAd ad : agency.getJobAds()) {
+            if (ad.getId().equals(request.getAdId())) {
+                // Ažuriramo naslov
+                if (request.getTitle() != null) {
+                    ad.setTitle(request.getTitle());
+                }
+                // Ažuriramo listu zahteva (veštine, prioriteti, nivoi)
+                if (request.getRequirements() != null) {
+                    ad.setRequirements(request.getRequirements());
+                }
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            repository.updateUser(agency);
+        } else {
+            throw new RuntimeException("Oglas sa ID-em " + request.getAdId() + " nije pronađen.");
+        }
+    }
+}
 
 
 
