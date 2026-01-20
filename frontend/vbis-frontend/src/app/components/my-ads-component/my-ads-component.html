@@ -1,0 +1,53 @@
+<div class="my-ads-container">
+  <h2>Moji objavljeni oglasi</h2>
+
+  <div class="ads-list">
+    <div *ngFor="let ad of myAds" class="ad-card">
+      <div class="ad-info">
+        <h3>{{ ad.title }}</h3>
+        <div class="requirements-summary">
+          <span *ngFor="let req of ad.requirements" class="req-tag">
+            {{ req.skill.name }} (P:{{ req.priority }}, L:{{ req.levelOfReadiness }})
+          </span>
+        </div>
+      </div>
+      <div class="ad-actions">
+        <button (click)="startEdit(ad)" class="edit-btn">Izmeni</button>
+        <button (click)="onDelete(ad.id)" class="delete-btn">Obriši</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit-overlay" *ngIf="editingAd">
+    <div class="edit-modal">
+      <h3>Izmeni oglas</h3>
+      
+      <div class="form-group">
+        <label>Naslov oglasa:</label>
+        <input [(ngModel)]="editingAd.title" type="text">
+      </div>
+
+      <div class="requirements-edit">
+        <h4>Zahtevi (Requirements):</h4>
+        <div *ngFor="let req of editingAd.requirements; let i = index" class="req-edit-row">
+          <span><strong>{{ req.skill.name }}</strong></span>
+          <select [(ngModel)]="req.priority">
+            <option value="LOW">LOW</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="HIGH">HIGH</option>
+          </select>
+          <select [(ngModel)]="req.levelOfReadiness">
+            <option value="LOW">LOW</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="HIGH">HIGH</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button (click)="saveEdit()" class="save-btn">Sačuvaj</button>
+        <button (click)="cancelEdit()" class="cancel-btn">Odustani</button>
+      </div>
+    </div>
+  </div>
+</div>
