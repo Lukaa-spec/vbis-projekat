@@ -144,6 +144,7 @@ public ArrayList<JobAd> searchJobAds(String query) {
                 FILTER LIKE(r.skill.name, @query, true)
                 RETURN 1
             ) > 0
+ 
             RETURN MERGE(j, { "agencyName": a.agencyName })
         """;
     
