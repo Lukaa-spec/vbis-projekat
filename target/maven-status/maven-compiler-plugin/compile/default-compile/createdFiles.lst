@@ -1,7 +1,9 @@
 com\mycompany\vbis\rdf\RdfJobAdService.class
 com\mycompany\vbis\model\JobRequirement.class
 com\mycompany\vbis\model\Agency.class
+com\mycompany\vbis\model\ExamAttempt.class
 com\mycompany\vbis\config\ArangoConfig.class
+com\mycompany\vbis\model\Subject.class
 com\mycompany\vbis\repository\UserRepository.class
 com\mycompany\vbis\config\SecurityConfig.class
 com\mycompany\vbis\controller\UserController$1.class
@@ -15,5 +17,7 @@ com\mycompany\vbis\model\Skill.class
 com\mycompany\vbis\model\Student.class
 com\mycompany\vbis\dto\UpdateProfileRequest.class
 com\mycompany\vbis\model\LevelOfReadiness.class
+com\mycompany\vbis\model\Lecturer.class
+com\mycompany\vbis\model\SubjectSkill.class
 com\mycompany\vbis\controller\UserController.class
 com\mycompany\vbis\jwt\JwtUtil.class

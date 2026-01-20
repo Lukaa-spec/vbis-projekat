@@ -4,6 +4,7 @@
  */
 package com.mycompany.vbis.controller;
 
+import com.mycompany.vbis.dto.UpdateJobAdRequest;
 import com.mycompany.vbis.dto.UpdateProfileRequest;
 import com.mycompany.vbis.jwt.JwtUtil;
 import com.mycompany.vbis.model.Agency;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.vbis.rdf.RdfJobAdService;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -221,7 +224,7 @@ public ResponseEntity<?> getStudentsLookingForJob(
     }
 }
 
-
+//Pretraga oglasa za posao
 @GetMapping("/search-jobs")
 public ResponseEntity<?> searchJobs(
         @RequestHeader("Authorization") String authHeader,
@@ -243,7 +246,54 @@ public ResponseEntity<?> searchJobs(
     }
 }
 
+//Dobavljanje samo mojih oglasa
+@GetMapping("/my-ads")
+public ResponseEntity<?> getMyAds() {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findByUsername(username);
 
+    if (user instanceof Agency agency) {
+        return ResponseEntity.ok(agency.getJobAds());
+    }
+    return ResponseEntity.status(403).body("Samo agencije mogu pristupiti svojim oglasima.");
+}
+
+//Brisanje oglasa
+@DeleteMapping("/job-ads/{adId}")
+public ResponseEntity<?> deleteJobAd(@PathVariable String adId) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    try {
+        userService.deleteJobAd(username, adId);
+        return ResponseEntity.ok(Map.of("message", "Oglas uspešno obrisan"));
+    } catch (Exception e) {
+        return ResponseEntity.status(400).body(e.getMessage());
+    }
+}
+
+//Izmena oglasa
+@PutMapping("/job-ads")
+public ResponseEntity<?> updateJobAd(@RequestBody UpdateJobAdRequest request) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    try {
+        userService.updateJobAd(username, request);
+        return ResponseEntity.ok(Map.of("message", "Oglas uspešno izmenjen"));
+    } catch (Exception e) {
+        return ResponseEntity.status(400).body(e.getMessage());
+    }
+}
+
+//Moji ispiti
+@GetMapping("/my-exams")
+public ResponseEntity<?> getMyExams() {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findByUsername(username);
+
+    if (user instanceof Student student) {
+      
+        return ResponseEntity.ok(student.getExamHistory());
+    }
+    return ResponseEntity.status(403).body("Pristup dozvoljen samo studentima.");
+}
 
 
 
