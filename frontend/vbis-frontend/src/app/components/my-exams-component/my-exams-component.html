@@ -1,0 +1,44 @@
+<div class="exams-container">
+  <h2 class="page-title"> Moja akademska istorija</h2>
+
+  <div class="exam-grid">
+    <div *ngFor="let ispit of exams" class="exam-card">
+      
+      <div class="card-header">
+        <div class="subject-title">
+          <h3>{{ ispit.subject?.name }}</h3>
+          <p class="lecturer"> Profesor: {{ ispit.subject?.lecturer?.fullName }}</p>
+        </div>
+        <div class="grade-badge" [ngClass]="'grade-' + ispit.grade">
+          {{ ispit.grade }}
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="section-label">Stečene veštine:</p>
+        <div class="skills-list">
+          <div *ngFor="let st of ispit.subject?.skillTaught" class="skill-item">
+            
+            <span class="skill-name">{{ st.skill?.name }}</span>
+            
+            <span *ngIf="st.levelOfReadiness" 
+                  class="level-tag" 
+                  [ngClass]="'level-' + st.levelOfReadiness">
+              {{ st.levelOfReadiness }}
+            </span>
+            
+            <span *ngIf="!st.levelOfReadiness" class="level-tag level-UNKNOWN">
+              N/A
+            </span>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="exams.length === 0" class="empty-state">
+     Trenutno nema zabeleženih ispita
+  </div>
+</div>

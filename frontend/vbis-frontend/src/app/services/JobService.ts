@@ -41,4 +41,21 @@ export class JobService {
     headers: this.getHeaders() 
   });
  }
+
+  getMyAds(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/my-ads`, { headers: this.getHeaders() });
+  }
+
+  deleteAd(adId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/job-ads/${adId}`, { headers: this.getHeaders() });
+  }
+
+  updateAd(updateRequest: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/job-ads`, updateRequest, { headers: this.getHeaders() });
+  }
+
+  getMyExams(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/my-exams`, { headers: this.getHeaders() });
+  }
+  
 }

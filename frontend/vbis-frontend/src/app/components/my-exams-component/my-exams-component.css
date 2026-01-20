@@ -1,0 +1,134 @@
+
+.exams-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.page-title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.exam-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e1e8ed;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.exam-card:hover {
+  transform: translateY(-4px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.subject-title h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #1a202c;
+}
+
+.lecturer {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+
+.grade-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.grade-10, .grade-9 { background-color: #27ae60; }
+.grade-8, .grade-7 { background-color: #f1c40f; color: #333; }
+.grade-6 { background-color: #e74c3c; }
+
+
+.section-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #a0aec0;
+  font-weight: 700;
+  margin: 1.2rem 0 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f7fafc;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #edf2f7;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.level-tag {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.level-HIGH {
+  background-color: #c6f6d5;
+  color: #22543d;
+}
+
+.level-MEDIUM {
+  background-color: #ebf8ff;
+  color: #2b6cb0;
+}
+
+.level-LOW {
+  background-color: #fff5f5;
+  color: #c53030;
+}
+
+.level-UNKNOWN {
+  background-color: #edf2f7;
+  color: #718096;
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 4rem;
+  color: #a0aec0;
+  font-style: italic;
+}
