@@ -1,15 +1,13 @@
 <div class="container">
-  <div class="search-header">
+  <div class="header">
     <h2>Studenti koji traže posao</h2>
-    <button (click)="fetchStudents()" class="search-btn" [disabled]="loading">
-      Pretraži studente
-    </button>
+    <button (click)="fetchStudents()" [disabled]="loading">Pretraži</button>
   </div>
 
-  <div class="results-grid">
-    <div *ngFor="let s of students" class="student-card" [class.active]="selectedStudent === s">
+  <div class="list">
+    <div *ngFor="let s of students" class="card">
       <div class="card-main" (click)="toggleDetails(s)">
-        <div class="avatar">👤</div>
+        <span>👤</span>
         <div class="info">
           <h3>{{ s.username || s._key }}</h3>
           <p>{{ s.email }}</p>
@@ -17,35 +15,39 @@
         <span class="badge">Traži posao</span>
       </div>
 
-      <div class="card-details" *ngIf="selectedStudent === s">
+      <div class="details" *ngIf="selectedStudent === s">
         <hr>
-        <h4>Veštine (Skills)</h4>
-        <div class="skills-list">
-          <span *ngFor="let sk of s.skills" class="skill-tag">{{ sk.name }}</span>
-          <p *ngIf="!s.skills || s.skills.length === 0">Nema upisanih veština.</p>
+        <div class="skills-box">
+          <strong>Glavne veštine:</strong>
+          <span *ngFor="let sk of s.skills" class="tag">{{ sk }}</span>
         </div>
 
-        <h4>Istorija ispita (Exam History)</h4>
-        <table class="exam-table" *ngIf="s.examHistory && s.examHistory.length > 0">
+        <table class="exam-table">
           <thead>
             <tr>
               <th>Predmet</th>
               <th>Ocena</th>
+              <th>Nivoi veština</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let ex of s.examHistory">
-              <td>{{ ex.subjectName }}</td>
+              <td>{{ ex.subject?.name }}</td>
               <td><span class="grade">{{ ex.grade }}</span></td>
+              <td>
+                <div *ngFor="let st of ex.subject?.skillTaught">
+                  {{ st.skill?.name }}: 
+                  <b [ngClass]="'lvl-' + st.levelOfReadiness">{{ st.levelOfReadiness }}</b>
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
-        <p *ngIf="!s.examHistory || s.examHistory.length === 0">Nema istorije ispita.</p>
       </div>
     </div>
   </div>
 
-  <div *ngIf="students.length === 0 && !loading" class="empty-state">
-    Kliknite na dugme iznad da biste videli studente koji su dostupni za rad.
+  <div *ngIf="students.length === 0 && !loading" class="empty">
+    Kliknite na dugme za pretragu.
   </div>
 </div>
