@@ -1,88 +1,124 @@
-.container { max-width: 1000px; margin: 40px auto; padding: 20px; }
+.container {
+  max-width: 900px;
+  margin: 20px auto;
+  font-family: sans-serif;
+}
 
-.search-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
 }
 
-.search-btn {
+button {
   background: #3498db;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.student-card {
-  background: white;
-  margin-bottom: 15px;
-  border-radius: 12px;
-  border: 1px solid #d1d1d1;
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
   overflow: hidden;
-  transition: 0.3s;
 }
 
 .card-main {
   display: flex;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   cursor: pointer;
 }
 
-.avatar { font-size: 2.5rem; margin-right: 20px; }
-.info h3 { margin: 0; color: #2c3e50; }
-.info p { margin: 5px 0 0; color: #7f8c8d; }
+.card-main span:first-child {
+  font-size: 2rem;
+  margin-right: 15px;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
 
 .badge {
   margin-left: auto;
   background: #27ae60;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 20px;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 15px;
   font-size: 0.8rem;
 }
 
-.card-details {
-  padding: 0 20px 20px;
-  background: #fdfdfd;
+.details {
+  padding: 15px;
+  background: #fafafa;
+  border-top: 1px solid #eee;
 }
 
-.skill-tag {
+.tag {
   display: inline-block;
-  background: #ebf5fb;
-  color: #2980b9;
-  padding: 5px 10px;
+  background: #3498db;
+  color: #fff;
+  padding: 2px 8px;
   border-radius: 4px;
-  margin: 5px;
-  font-size: 0.9rem;
+  margin: 3px;
+  font-size: 0.8rem;
 }
 
 .exam-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  font-size: 0.9rem;
 }
 
-.exam-table th, .exam-table td {
+.exam-table th {
   text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid #b9b9b9;
+  background: #eee;
+  padding: 8px;
+}
+
+.exam-table td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
 }
 
 .grade {
-  background: #f1c40f;
-  color: #000;
-  padding: 2px 8px;
+  background: #27ae60;
+  color: #fff;
+  padding: 2px 6px;
   border-radius: 4px;
   font-weight: bold;
 }
 
+.lvl-HIGH {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.lvl-MEDIUM {
+  color: #2980b9;
+  font-weight: bold;
+}
+
+.lvl-LOW {
+  color: #e67e22;
+  font-weight: bold;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
+  margin-top: 50px;
+}

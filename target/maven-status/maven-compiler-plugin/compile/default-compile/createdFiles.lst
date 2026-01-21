@@ -12,6 +12,7 @@ com\mycompany\vbis\jwt\JwtAuthenticationFilter.class
 com\mycompany\vbis\model\User.class
 com\mycompany\vbis\VbisApplication.class
 com\mycompany\vbis\service\UserService.class
+com\mycompany\vbis\dto\UpdateJobAdRequest.class
 com\mycompany\vbis\model\Priority.class
 com\mycompany\vbis\model\Skill.class
 com\mycompany\vbis\model\Student.class
